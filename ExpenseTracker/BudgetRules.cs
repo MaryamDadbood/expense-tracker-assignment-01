@@ -27,7 +27,17 @@ public static class BudgetRules
     public static decimal ValidateAmount(decimal amount)
     {
         // TODO: guard clauses + decimal.Round(amount, 2)
-        throw new NotImplementedException();
+        
+        if (amount <= 0)
+        {
+            throw new InvalidExpenseException("Invalid amount!");
+        }
+        if (amount > MaxAmount)
+        {
+            throw new InvalidExpenseException("Invalid amount!");
+        }
+        
+        return decimal.Round(amount,2);
     }
 
     /// <summary>
