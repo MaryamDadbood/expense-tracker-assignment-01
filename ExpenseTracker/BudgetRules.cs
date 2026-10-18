@@ -49,7 +49,16 @@ public static class BudgetRules
     public static string ClassifyAmount(decimal amount)
     {
         // TODO
-        throw new NotImplementedException();
+
+        string sizaBand = amount switch
+        {
+            <=0 => throw new InvalidExpenseException("Invalid amount") ,
+            < 10 => "Micro",
+            < 50 => "Small",
+            < 200 => "Medium",
+            _ => "Large"
+        };
+        return sizaBand;
     }
 
     /// <summary>
