@@ -107,7 +107,7 @@ public static class BudgetRules
         // Validate the monthly budget limit
         if (monthlyLimit <= 0)
         {
-            throw new InvalidExpenseException("Monthly limit must be greater than zero");
+            throw new ArgumentException("Monthly limit must be greater than zero");
         }
 
         //check if spending has exceeded the budget
@@ -132,18 +132,19 @@ public static class BudgetRules
     /// Implement this as an expression-bodied member that calls the overload.
     /// </summary>
     public static string FormatCurrency(decimal amount)
-    {
-        // TODO: return FormatCurrency(amount, "$");
-        throw new NotImplementedException();
-    }
+        // call the overloaded method using the default dollar symbol.
+         => FormatCurrency(amount, "$");
 
     /// <summary>
     /// Formats an amount as currency using the given symbol, e.g. "$62.40".
     /// </summary>
     public static string FormatCurrency(decimal amount, string currencySymbol)
     {
-        // TODO: use a "0.00" format string
-        throw new NotImplementedException();
+        //convert the amount to a string with two decimal places.
+        //add the currency symbol before the amount.
+        string stringAmount = amount.ToString("0.00");
+        string currency = currencySymbol + stringAmount;
+        return currency;
     }
 }
 
