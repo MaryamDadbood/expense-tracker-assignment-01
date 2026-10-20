@@ -74,7 +74,7 @@ public static class BudgetRules
     /// </summary>
     public static string? NormalizeCategory(string? input)
     {
-        // TODO
+        
         // Check if input is null
         if (input==null)
         {
@@ -104,8 +104,27 @@ public static class BudgetRules
     /// </summary>
     public static string BudgetStatus(decimal remaining, decimal monthlyLimit)
     {
-        // TODO
-        throw new NotImplementedException();
+        // Validate the monthly budget limit
+        if (monthlyLimit <= 0)
+        {
+            throw new InvalidExpenseException("Monthly limit must be greater than zero");
+        }
+
+        //check if spending has exceeded the budget
+        if (remaining < 0)
+        {
+            return "OVER BUDGET";
+        }
+        
+        //check if less than 10% of the budget remains
+        if(remaining < (0.10m * monthlyLimit))
+        {
+            return "Almost out";
+        }
+        
+        //return on track if enough budget remains
+            return "On track";
+        
     }
 
     /// <summary>
