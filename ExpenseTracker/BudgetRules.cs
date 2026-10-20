@@ -25,18 +25,20 @@ public static class BudgetRules
     /// than zero, or is greater than <see cref="MaxAmount"/>.
     /// </summary>
     public static decimal ValidateAmount(decimal amount)
-    {
-        // TODO: guard clauses + decimal.Round(amount, 2)
-        
+     { 
+        //Reject zero or negetive amount
         if (amount <= 0)
         {
             throw new InvalidExpenseException("Invalid amount!");
         }
+
+        //Rejet amount exceeding the maximum allowed limit 
         if (amount > MaxAmount)
         {
             throw new InvalidExpenseException("Invalid amount!");
         }
-        
+
+        //Round the valid amount to two decimal places
         return decimal.Round(amount,2);
     }
 
@@ -48,7 +50,7 @@ public static class BudgetRules
     /// </summary>
     public static string ClassifyAmount(decimal amount)
     {
-        // TODO
+        // Validate the amount and classify it into a size category
 
         string sizaBand = amount switch
         {
@@ -58,6 +60,8 @@ public static class BudgetRules
             < 200 => "Medium",
             _ => "Large"
         };
+
+        //Return the calculated size category
         return sizaBand;
     }
 
@@ -71,7 +75,26 @@ public static class BudgetRules
     public static string? NormalizeCategory(string? input)
     {
         // TODO
-        throw new NotImplementedException();
+        // Check if input is null
+        if (input==null)
+        {
+            return null;
+        }
+        
+        // Remove extra spaces and convert the input to lower case
+        input = input.Trim().ToLower();
+
+        //Match the Input to a valid category or return null
+        string? result = input switch
+        {
+            "food" or "f" => "Food",
+            "transport" or "t" => "Transport",
+            "utilities" or "u" => "Utilities",
+            "entertainment" or "e" => "Entertainment",
+            "other" or "o" => "Other",
+            _ => null
+        };
+        return result;
     }
 
     /// <summary>
