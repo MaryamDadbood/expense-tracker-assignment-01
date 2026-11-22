@@ -23,7 +23,7 @@ namespace MyBudget.Core
                 throw new InvalidExpenseException("description cannot be blank");
             }
             decimal roundAmount = ValidateAmount(amount);
-            return new OneTimeExpense(Guid.NewGuid(), description, roundAmount, category, date);
+            return new OneTimeExpense(Guid.NewGuid(), description.Trim(), roundAmount, category, date);
 
         }
 
